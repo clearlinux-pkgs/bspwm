@@ -4,7 +4,7 @@
 #
 Name     : bspwm
 Version  : 0.9.10
-Release  : 4
+Release  : 5
 URL      : https://github.com/baskerville/bspwm/archive/refs/tags/0.9.10.tar.gz
 Source0  : https://github.com/baskerville/bspwm/archive/refs/tags/0.9.10.tar.gz
 Summary  : No detailed summary available
