@@ -4,22 +4,53 @@
 #
 Name     : bspwm
 Version  : 0.9.10
-Release  : 3
+Release  : 4
 URL      : https://github.com/baskerville/bspwm/archive/refs/tags/0.9.10.tar.gz
 Source0  : https://github.com/baskerville/bspwm/archive/refs/tags/0.9.10.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-2-Clause
+Requires: bspwm-bin = %{version}-%{release}
+Requires: bspwm-data = %{version}-%{release}
 Requires: bspwm-license = %{version}-%{release}
+Requires: bspwm-man = %{version}-%{release}
 BuildRequires : libxcb-dev
 BuildRequires : xcb-util-keysyms-dev
 BuildRequires : xcb-util-renderutil-dev
 BuildRequires : xcb-util-wm-dev
 BuildRequires : xcb-util-xrm-dev
+Patch1: build.patch
 
 %description
 ## Description
 *bspwm* is a tiling window manager that represents windows as the leaves of a full binary tree.
+
+%package bin
+Summary: bin components for the bspwm package.
+Group: Binaries
+Requires: bspwm-data = %{version}-%{release}
+Requires: bspwm-license = %{version}-%{release}
+
+%description bin
+bin components for the bspwm package.
+
+
+%package data
+Summary: data components for the bspwm package.
+Group: Data
+
+%description data
+data components for the bspwm package.
+
+
+%package doc
+Summary: doc components for the bspwm package.
+Group: Documentation
+Requires: bspwm-man = %{version}-%{release}
+
+%description doc
+doc components for the bspwm package.
+
 
 %package license
 Summary: license components for the bspwm package.
@@ -29,16 +60,25 @@ Group: Default
 license components for the bspwm package.
 
 
+%package man
+Summary: man components for the bspwm package.
+Group: Default
+
+%description man
+man components for the bspwm package.
+
+
 %prep
 %setup -q -n bspwm-0.9.10
 cd %{_builddir}/bspwm-0.9.10
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1647970968
+export SOURCE_DATE_EPOCH=1647971115
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
@@ -48,7 +88,7 @@ make  %{?_smp_mflags}
 
 
 %install
-export SOURCE_DATE_EPOCH=1647970968
+export SOURCE_DATE_EPOCH=1647971115
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/bspwm
 cp %{_builddir}/bspwm-0.9.10/LICENSE %{buildroot}/usr/share/package-licenses/bspwm/90f913bf6cd54dc32fefa628078f50cfcc11ef3f
@@ -57,6 +97,27 @@ cp %{_builddir}/bspwm-0.9.10/LICENSE %{buildroot}/usr/share/package-licenses/bsp
 %files
 %defattr(-,root,root,-)
 
+%files bin
+%defattr(-,root,root,-)
+/usr/bin/bspc
+/usr/bin/bspwm
+
+%files data
+%defattr(-,root,root,-)
+/usr/share/bash-completion/completions/bspc
+/usr/share/fish/vendor_completions.d/bspc.fish
+/usr/share/xsessions/bspwm.desktop
+/usr/share/zsh/site-functions/_bspc
+
+%files doc
+%defattr(0644,root,root,0755)
+%doc /usr/share/doc/bspwm/*
+
 %files license
 %defattr(0644,root,root,0755)
 /usr/share/package-licenses/bspwm/90f913bf6cd54dc32fefa628078f50cfcc11ef3f
+
+%files man
+%defattr(0644,root,root,0755)
+/usr/share/man/man1/bspc.1
+/usr/share/man/man1/bspwm.1

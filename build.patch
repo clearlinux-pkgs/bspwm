@@ -1,0 +1,11 @@
+--- bspwm-0.9.10/Makefile~	2020-08-02 07:51:32.000000000 +0000
++++ bspwm-0.9.10/Makefile	2022-03-22 17:44:05.683029895 +0000
+@@ -6,7 +6,7 @@
+ LDFLAGS  ?=
+ LDLIBS    = $(LDFLAGS) -lm -lxcb -lxcb-util -lxcb-keysyms -lxcb-icccm -lxcb-ewmh -lxcb-randr -lxcb-xinerama -lxcb-shape
+ 
+-PREFIX    ?= /usr/local
++PREFIX    ?= /usr
+ BINPREFIX ?= $(PREFIX)/bin
+ MANPREFIX ?= $(PREFIX)/share/man
+ DOCPREFIX ?= $(PREFIX)/share/doc/bspwm
